@@ -26,10 +26,10 @@ export class SignUpComponent implements OnInit {
 }
 
 interface SignUpForm {
-  email?: string
-  password?: string
-  firstName?: string
-  lastName?: string
+  email: string
+  password: string
+  firstName: string
+  lastName: string
 }
 
-const newSignUpForm = (): SignUpForm => ({})
+const newSignUpForm = (): SignUpForm => ({ email: "", password: "", firstName: "", lastName: "" })

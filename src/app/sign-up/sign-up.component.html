@@ -1,26 +1,32 @@
 <app-unauthenticated-page>
-  <div class="sign-up-form">
-    <div class="form-data">
-      <div class="email">
-        <label for="email">Email</label>
-        <input [(ngModel)]="signUpForm.email" name="email"/>
+  <div class="sign-up-page">
+    <div class="sign-up-form">
+      <div class="form-data">
+        <div class="email form-group">
+          <label for="email">Email</label>
+          <input class="form-control" [(ngModel)]="signUpForm.email" name="email"/>
+        </div>
+        <div class="password form-group">
+          <label for="password">Password</label>
+          <input class="form-control" [(ngModel)]="signUpForm.password" type="password" name="password"/>
+        </div>
+        <div class="first-name form-group">
+          <label for="firstName">First Name</label>
+          <input class="form-control" [(ngModel)]="signUpForm.firstName" name="firstName"/>
+        </div>
+        <div class="last-name form-group">
+          <label for="lastName">Last Name</label>
+          <input class="form-control" [(ngModel)]="signUpForm.lastName" name="lastName"/>
+        </div>
       </div>
-      <div class="password">
-        <label for="password">Password</label>
-        <input [(ngModel)]="signUpForm.password" type="password" name="password"/>
+      <div class="form-controls">
+        <span>Already have an account?<a routerLink="/sign-in">Sign In</a></span>
+        <a>Forgot password?</a>
+
+        <button class="btn btn-primary" (click)="signUp()">
+          Sign Up
+        </button>
       </div>
-      <div class="first-name">
-        <label for="firstName">First Name</label>
-        <input [(ngModel)]="signUpForm.firstName" name="firstName"/>
-      </div>
-      <div class="last-name">
-        <label for="lastName">Last Name</label>
-        <input [(ngModel)]="signUpForm.lastName" name="lastName"/>
-      </div>
-    </div>
-    <div class="form-controls">
-      <a routerLink="/sign-in">Sign In</a>
-      <button (click)="signUp()">OK</button>
     </div>
   </div>
 </app-unauthenticated-page>

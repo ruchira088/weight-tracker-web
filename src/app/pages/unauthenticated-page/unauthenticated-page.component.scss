@@ -1,0 +1,20 @@
+.unauthenticated-page {
+  background-image: url("/assets/images/unauthenticated-bg.jpg");
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  .content-card {
+    background-color: white;
+    border-radius: 0.2em;
+    box-shadow: 0 0.5em 1em 0.1em gray;
+    padding: 2em;
+  }
+
+  img.logo-header {
+    width: 25em;
+    padding: 0 2em 2em;
+  }
+}

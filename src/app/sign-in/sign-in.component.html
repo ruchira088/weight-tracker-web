@@ -1,18 +1,28 @@
 <app-unauthenticated-page>
-  <div class="sign-in-form">
-    <div class="form-data">
-      <div class="email">
-        <label for="email">Email</label>
-        <input name="email" [(ngModel)]="email"/>
+  <div class="sign-in-page">
+    <div class="sign-in-form">
+      <div class="form-data">
+        <div class="email form-group">
+          <label for="email">Email</label>
+          <input class="form-control" name="email" [(ngModel)]="email" placeholder="Email"/>
+        </div>
+        <div class="password form-group">
+          <label for="password">Password</label>
+          <input class="form-control" name="password" type="password" [(ngModel)]="password" placeholder="Password"/>
+        </div>
       </div>
-      <div class="password">
-        <label for="password">Password</label>
-        <input name="password" type="password" [(ngModel)]="password">
+      <div class="form-feedback" *ngFor="let error of errors">
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
       </div>
-    </div>
-    <div class="form-controls">
-      <a routerLink="/sign-up">Sign Up</a>
-      <button (click)="login()">Login</button>
+      <div class="form-controls">
+        <span>Don't have an account?<a class="sign-up-link" routerLink="/sign-up">Sign Up</a></span>
+        <a>Forgot password?</a>
+
+        <button class="btn btn-primary" (click)="login()" [disabled]="loading">
+          Log In
+          <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        </button>
+      </div>
     </div>
   </div>
 </app-unauthenticated-page>

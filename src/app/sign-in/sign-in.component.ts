@@ -1,6 +1,9 @@
 import {Component} from "@angular/core"
-import {AuthenticationService} from "../services/authentication/authentication.service"
 import {Router} from "@angular/router"
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { isEmpty } from "ramda"
+import {AuthenticationService} from "../services/authentication/authentication.service"
+import { formErrors } from "../utils/form-utils"
 
 @Component({
   selector: "app-sign-in",
@@ -9,24 +12,29 @@ import {Router} from "@angular/router"
 })
 export class SignInComponent {
 
-  email = ""
-  password = ""
   loading = false
   errors = []
+  form = new FormGroup({
+    email: new FormControl("", [Validators.email, Validators.required]),
+    password: new FormControl("", [Validators.required])
+  })
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  }
 
-  login() {
-    this.errors = []
-    this.loading = true
+  login({email, password }) {
+    this.errors = formErrors(this.form.controls)
 
-    this.authenticationService.login(this.email, this.password)
-      .subscribe(
-        _ => this.router.navigateByUrl(""),
-        ({ error }) => {
-          this.loading = false
-          this.errors = error.errorMessages
-        }
-      )
+    if (isEmpty(this.errors)) {
+      this.loading = true
+      this.authenticationService.login(email, password)
+        .subscribe(
+          _ => this.router.navigateByUrl(""),
+          ({error}) => {
+            this.loading = false
+            this.errors = error.errorMessages
+          }
+        )
+    }
   }
 }

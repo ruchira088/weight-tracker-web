@@ -7,6 +7,6 @@ export class ConfigService {
   constructor() { }
 
   apiServerUrl(): string {
-    return "http://localhost:8000"
+    return "https://master.api.weight-tracker.ruchij.com"
   }
 }

@@ -1,14 +1,14 @@
 <app-unauthenticated-page>
   <div class="sign-in-page">
-    <div class="sign-in-form">
+    <form class="sign-in-form" [formGroup]="form" (ngSubmit)="login(form.value)">
       <div class="form-data">
         <div class="email form-group">
           <label for="email">Email</label>
-          <input class="form-control" name="email" [(ngModel)]="email" placeholder="Email"/>
+          <input class="form-control" autocomplete="email" name="email" formControlName="email" placeholder="Email"/>
         </div>
         <div class="password form-group">
           <label for="password">Password</label>
-          <input class="form-control" name="password" type="password" [(ngModel)]="password" placeholder="Password"/>
+          <input class="form-control" autocomplete="password" name="password" type="password" formControlName="password" placeholder="Password"/>
         </div>
       </div>
       <div class="form-feedback" *ngFor="let error of errors">
@@ -18,11 +18,11 @@
         <span>Don't have an account?<a class="sign-up-link" routerLink="/sign-up">Sign Up</a></span>
         <a>Forgot password?</a>
 
-        <button class="btn btn-primary" (click)="login()" [disabled]="loading">
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
           Log In
           <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </app-unauthenticated-page>

@@ -1,32 +1,36 @@
 <app-unauthenticated-page>
   <div class="sign-up-page">
-    <div class="sign-up-form">
+    <form class="sign-up-form" [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
       <div class="form-data">
         <div class="email form-group">
           <label for="email">Email</label>
-          <input class="form-control" [(ngModel)]="signUpForm.email" name="email"/>
+          <input class="form-control" autocomplete="email" name="email" formControlName="email" placeholder="Email"/>
         </div>
         <div class="password form-group">
           <label for="password">Password</label>
-          <input class="form-control" [(ngModel)]="signUpForm.password" type="password" name="password"/>
+          <input class="form-control" autocomplete="password" type="password" name="password" formControlName="password" placeholder="Password"/>
         </div>
         <div class="first-name form-group">
           <label for="firstName">First Name</label>
-          <input class="form-control" [(ngModel)]="signUpForm.firstName" name="firstName"/>
+          <input class="form-control" name="firstName" formControlName="firstName" placeholder="First Name"/>
         </div>
         <div class="last-name form-group">
           <label for="lastName">Last Name</label>
-          <input class="form-control" [(ngModel)]="signUpForm.lastName" name="lastName"/>
+          <input class="form-control" name="lastName" formControlName="lastName" placeholder="Last Name"/>
         </div>
+      </div>
+      <div class="form-feedback" *ngFor="let error of errors">
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
       </div>
       <div class="form-controls">
         <span>Already have an account?<a routerLink="/sign-in">Sign In</a></span>
         <a>Forgot password?</a>
 
-        <button class="btn btn-primary" (click)="signUp()">
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
           Sign Up
+          <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </app-unauthenticated-page>

@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core"
+import { apiServiceUrl as serviceUrl } from "../../../../service-config.json"
 
 @Injectable({
   providedIn: "root"
@@ -6,7 +7,5 @@ import { Injectable } from "@angular/core"
 export class ConfigService {
   constructor() { }
 
-  apiServerUrl(): string {
-    return "https://master.api.weight-tracker.ruchij.com"
-  }
+  public apiServerUrl: string = serviceUrl
 }

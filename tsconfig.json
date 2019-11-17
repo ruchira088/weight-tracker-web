@@ -8,6 +8,7 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,

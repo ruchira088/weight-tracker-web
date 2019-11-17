@@ -23,7 +23,7 @@ export class AuthenticationService {
   ) {}
 
   login(email: string, password: string): Observable<AuthenticationToken> {
-    return this.httpClient.post<AuthenticationToken>(`${this.configService.apiServerUrl()}/session`, { email, password })
+    return this.httpClient.post<AuthenticationToken>(`${this.configService.apiServerUrl}/session`, { email, password })
       .pipe(tap(({ secret }) => {
         this.storageService.setValue(AUTHENTICATION_SECRET, secret)
       }))
@@ -47,7 +47,7 @@ export class AuthenticationService {
 
     return this.maybeAuthenticationHeader()
       .map(headers => {
-        return this.httpClient.delete<AuthenticationToken>(`${this.configService.apiServerUrl()}/session`, { headers })
+        return this.httpClient.delete<AuthenticationToken>(`${this.configService.apiServerUrl}/session`, { headers })
       })
       .fold<Observable<Maybe<AuthenticationToken>>>(Observable.of(None()))(observable => observable.pipe(map(Maybe.fromUndefined)))
   }
@@ -60,7 +60,7 @@ export class AuthenticationService {
   private fetchAuthenticatedUser(): Observable<Maybe<User>> {
     return this.maybeAuthenticationHeader()
       .map(headers => {
-        return this.httpClient.get<User>(`${this.configService.apiServerUrl()}/session/user`, { headers })
+        return this.httpClient.get<User>(`${this.configService.apiServerUrl}/session/user`, { headers })
       })
       .fold<Observable<Maybe<User>>>(Observable.of(None()))(
         observable =>

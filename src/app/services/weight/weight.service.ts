@@ -30,7 +30,7 @@ export class WeightService {
         flatMap(
         ({ user, authenticationHeader }) =>
           this.httpClient.post(
-            `${this.configService.apiServerUrl()}/${user.id}/weight-entry`,
+            `${this.configService.apiServerUrl}/${user.id}/weight-entry`,
             { weight, timestamp, description },
             { headers: authenticationHeader }
             )

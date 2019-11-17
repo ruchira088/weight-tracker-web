@@ -4,19 +4,19 @@
       <div class="form-data">
         <div class="email form-group">
           <label for="email">Email</label>
-          <input class="form-control" autocomplete="email" name="email" formControlName="email" placeholder="Email"/>
+          <input class="form-control" autocomplete="email" name="email" formControlName="email"/>
         </div>
         <div class="password form-group">
           <label for="password">Password</label>
-          <input class="form-control" autocomplete="password" type="password" name="password" formControlName="password" placeholder="Password"/>
+          <input class="form-control" autocomplete="password" type="password" name="password" formControlName="password"/>
         </div>
         <div class="first-name form-group">
           <label for="firstName">First Name</label>
-          <input class="form-control" name="firstName" formControlName="firstName" placeholder="First Name"/>
+          <input class="form-control" name="firstName" formControlName="firstName"/>
         </div>
         <div class="last-name form-group">
           <label for="lastName">Last Name</label>
-          <input class="form-control" name="lastName" formControlName="lastName" placeholder="Last Name"/>
+          <input class="form-control" name="lastName" formControlName="lastName"/>
         </div>
       </div>
       <div class="form-feedback" *ngFor="let error of errors">

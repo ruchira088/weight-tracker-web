@@ -11,6 +11,10 @@ import { SignUpComponent } from "./sign-up/sign-up.component"
 import { AuthenticatedPageComponent } from "./pages/authenticated-page/authenticated-page.component"
 import { UnauthenticatedPageComponent } from "./pages/unauthenticated-page/unauthenticated-page.component"
 import { HeaderComponent } from "./home/header/header.component"
+import { ServiceInfoComponent } from "./service-info/service-info.component";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { WeightEntryComponent } from './home/weight-entry/weight-entry.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { HeaderComponent } from "./home/header/header.component"
     SignUpComponent,
     AuthenticatedPageComponent,
     UnauthenticatedPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ServiceInfoComponent,
+    ForgotPasswordComponent,
+    UpdatePasswordComponent,
+    WeightEntryComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,6 @@ export class SignInComponent {
 
   login({email, password}) {
     this.errors = formErrorMessages(this.signInForm.controls)
-    console.log(formErrors(this.signInForm.controls))
 
     if (isEmpty(this.errors)) {
       this.loading = true

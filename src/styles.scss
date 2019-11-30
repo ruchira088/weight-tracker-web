@@ -14,7 +14,7 @@ body {
   position: fixed;
 }
 
-.sign-in-form, .sign-up-form {
+.sign-in-form, .sign-up-form, .forgot-password-form {
   .form-data {
     label {
       display: block;
@@ -36,7 +36,7 @@ body {
       }
     }
 
-    span a {
+    a {
       margin-left: 0.4em;
       font-weight: bolder;
     }

@@ -1,5 +1,13 @@
 <app-authenticated-page>
   <app-home-header></app-home-header>
-  <p>Home works!</p>
+  <div class="home-content">
+    <div *ngIf="user">
+      <p>Hello {{ user.firstName }}</p>
+    </div>
+    <div (click)="showWeightEntryDialog()">Insert Weight Entry</div>
+  </div>
+  <div *ngIf="weightEntryDialogVisible">
+    <app-weight-entry></app-weight-entry>
+  </div>
 </app-authenticated-page>
 

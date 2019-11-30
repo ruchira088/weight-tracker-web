@@ -8,7 +8,6 @@ import {Just, Maybe, None} from "monet";
 import {ConfigService} from "../config/config.service"
 import {StorageService} from "../storage/storage.service"
 import {User} from "../user/user.service"
-import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -18,8 +17,7 @@ export class AuthenticationService {
   constructor(
     private httpClient: HttpClient,
     private configService: ConfigService,
-    private storageService: StorageService,
-    private router: Router
+    private storageService: StorageService
   ) {}
 
   login(email: string, password: string): Observable<AuthenticationToken> {
@@ -27,6 +25,10 @@ export class AuthenticationService {
       .pipe(tap(({ secret }) => {
         this.storageService.setValue(AUTHENTICATION_SECRET, secret)
       }))
+  }
+
+  forgotPassword(email: string, frontEndUrl: string) {
+    return
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -38,18 +40,19 @@ export class AuthenticationService {
   }
 
   user(): Observable<User> {
-    return this.maybeUser().pipe(flatMap(this.unauthenticatedUser))
+    return this.maybeUser().pipe(flatMap(value => this.unauthenticatedUser(value)))
   }
 
   logout(): Observable<Maybe<AuthenticationToken>> {
-    this.storageService.remove(AUTHENTICATION_SECRET)
-    this.storageService.remove(USER)
-
     return this.maybeAuthenticationHeader()
       .map(headers => {
         return this.httpClient.delete<AuthenticationToken>(`${this.configService.apiServerUrl}/session`, { headers })
       })
       .fold<Observable<Maybe<AuthenticationToken>>>(Observable.of(None()))(observable => observable.pipe(map(Maybe.fromUndefined)))
+      .pipe(tap(_ => {
+        this.storageService.remove(AUTHENTICATION_SECRET)
+        this.storageService.remove(USER)
+      }))
   }
 
   private maybeUser(): Observable<Maybe<User>> {

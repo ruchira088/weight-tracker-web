@@ -7,5 +7,7 @@ import { apiServiceUrl as serviceUrl } from "../../../../service-config.json"
 export class ConfigService {
   constructor() { }
 
-  public apiServerUrl: string = serviceUrl
+  apiServerUrl: string = serviceUrl
+
+  frontEndUrl: string = location.origin
 }

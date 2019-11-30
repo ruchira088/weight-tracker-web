@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import { Router } from "@angular/router";
+import {User} from "../../services/user/user.service";
 
 @Component({
   selector: "app-authenticated-page",
@@ -8,16 +9,28 @@ import { Router } from "@angular/router";
   styleUrls: ["./authenticated-page.component.scss"]
 })
 export class AuthenticatedPageComponent implements OnInit {
+  loading: boolean
+  user: User
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.loading = true
+  }
 
   ngOnInit() {
-    this.authenticationService.isAuthenticated()
-      .subscribe(isAuthenticated => {
-        if (!isAuthenticated) {
-          this.router.navigateByUrl("/sign-in")
+    this.authenticationService.user()
+      .subscribe({
+        next: user => {
+          this.loading = false
+          this.user = user
+        },
+        error: () => {
+          this.loading = false
+          return this.gotoSignInPage()
         }
       })
   }
 
+  gotoSignInPage(): Promise<boolean> {
+    return this.router.navigateByUrl("/sign-in")
+  }
 }

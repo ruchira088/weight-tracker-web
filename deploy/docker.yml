@@ -1,0 +1,24 @@
+---
+- import_playbook: variables.yml
+
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Delete existing "dist" directory
+      file:
+        path: dist
+        state: absent
+
+    - copy:
+        dest: ../build-info.json
+        content: { "gitCommit": "{{ git_commit}}", "gitBranch": "{{ git_branch }}" }
+
+    - name: Build application
+      command: npm run build
+
+    - name: Build Docker image
+      shell: |
+        docker build \
+          -f ../Dockerfile-prod \
+          ../dist

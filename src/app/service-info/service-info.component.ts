@@ -1,5 +1,6 @@
 import {Component} from "@angular/core"
-import {ConfigService} from "../services/config/config.service";
+import {BuildInformation, ConfigService} from "../services/config/config.service";
+import {Maybe} from "monet";
 
 @Component({
   selector: "app-service-info",
@@ -8,8 +9,10 @@ import {ConfigService} from "../services/config/config.service";
 })
 export class ServiceInfoComponent {
   apiServiceUrl: string
+  buildInformation?: BuildInformation
 
   constructor(private configService: ConfigService) {
     this.apiServiceUrl = configService.apiServerUrl
+    this.buildInformation = configService.buildInformation.orUndefined()
   }
 }

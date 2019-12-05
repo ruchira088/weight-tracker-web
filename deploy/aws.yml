@@ -1,0 +1,28 @@
+---
+- import_playbook: variables.yml
+
+- hosts: localhost
+  connection: local
+
+  vars:
+    terraform_s3_backend: weight-tracker.ruchij.com
+
+  tasks:
+    - name: Create Terraform backend in S3
+      aws_s3:
+        bucket: "{{ terraform_s3_backend }}"
+        region: ap-southeast-2
+        mode: create
+
+    - name: Create shared AWS resources
+      terraform:
+        project_path: aws/shared
+        force_init: yes
+        backend_config:
+          bucket: "{{ terraform_s3_backend }}"
+          key: weight-tracker-web.tfstate
+          region: ap-southeast-2
+      register: terraform_shared_output
+
+    - set_fact:
+        weight_tracker_web_ecr_url: "{{ terraform_shared_output.outputs.weight_tracker_web_ecr_url.value }}"

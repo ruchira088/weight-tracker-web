@@ -1,0 +1,20 @@
+---
+- import_playbook: variables.yml
+- import_playbook: aws.yml
+- import_playbook: docker.yml
+
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Login to ECR
+      shell: $(aws ecr get-login --no-include-email --region ap-southeast-2)
+
+    - name: Push Docker images to ECR
+      shell:
+        docker tag weight-tracker-web:{{ git_commit }} {{ weight_tracker_web_ecr_url }}:{{ item }} && \
+        docker push {{ weight_tracker_web_ecr_url }}:{{ item }}
+      with_items:
+        - "{{ git_commit }}"
+        - "{{ git_branch }}-{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}"
+

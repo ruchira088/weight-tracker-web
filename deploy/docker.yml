@@ -12,7 +12,12 @@
 
     - copy:
         dest: ../build-info.json
-        content: { "gitCommit": "{{ git_commit}}", "gitBranch": "{{ git_branch }}" }
+        content: |
+          {
+            "gitCommit": "{{ git_commit}}",
+            "gitBranch": "{{ git_branch }}",
+            "buildTimestamp": "{{ ansible_date_time.iso8601 }}"
+          }
 
     - name: Build application
       command: npm run build
@@ -20,5 +25,6 @@
     - name: Build Docker image
       shell: |
         docker build \
-          -f ../Dockerfile-prod \
-          ../dist
+          -t weight-tracker-web:{{ git_commit }} \
+          -f ./docker/Dockerfile-prod \
+          ../

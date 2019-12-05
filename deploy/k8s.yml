@@ -31,3 +31,12 @@
         dest: "output/{{ item | basename }}"
       with_fileglob:
         - k8s/*.yaml
+
+    - name: Create Namespace in K8s
+      command: kubectl apply -f output/Namespace.yaml --kubeconfig output/kubeconfig
+
+    - name: Deploy the application in K8s
+      command: kubectl apply -f output/ --kubeconfig output/kubeconfig
+
+    - name: Wait for successful deployment
+      command: kubectl rollout status deployment weight-tracker-web-deployment --kubeconfig output/kubeconfig -n weight-tracker-web-{{ git_branch }}

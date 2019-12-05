@@ -48,3 +48,6 @@ Thumbs.db
 
 # Application
 build-info.json
+
+# deployment
+deploy/output

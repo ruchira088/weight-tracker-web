@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: weight-tracker-web-{{ git_branch }}
+  name: weight-tracker-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: weight-tracker-web
+      branch: {{ git_branch }}
+  template:
+      metadata:
+        labels:
+          app: weight-tracker-web
+          branch: {{ git_branch }}
+      spec:
+        containers:
+          - name: weight-tracker-web
+            image: {{ weight_tracker_web_ecr_url }}:{{ git_commit }}
+            ports:
+              - containerPort: 80
+

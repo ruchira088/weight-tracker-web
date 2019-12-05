@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: weight-tracker-web-{{ git_branch }}
+  name: weight-tracker-web-service
+spec:
+  selector:
+    app: weight-tracker-web
+    branch: {{ git_branch }}
+  type: ClusterIP
+  ports:
+    - port: 80

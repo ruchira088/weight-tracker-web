@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  namespace: weight-tracker-web-{{ git_branch }}
+  name: weight-tracker-web-tls-certificate
+spec:
+  secretName: weight-tracker-web-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt
+  dnsNames:
+    - {{ git_branch }}.web.weight-tracker.ruchij.com

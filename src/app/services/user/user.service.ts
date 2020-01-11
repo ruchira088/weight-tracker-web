@@ -14,7 +14,7 @@ export class UserService {
 
   createUser(email: string, password: string, firstName: string, lastName?: string): Observable<AuthenticationToken> {
     return this.httpClient.post<User>(
-      `${this.configService.apiServerUrl}/user`,
+      `${this.configService.apiServerUrl}/v1/user`,
       { email, password, firstName, lastName }
       ).pipe(flatMap(_ => this.authenticationService.login(email, password)))
   }
